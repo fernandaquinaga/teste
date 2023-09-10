@@ -1,35 +1,20 @@
 // Obtém referência para o documento atual
 const doc = app.activeDocument;
 
-// Seleciona a imagem original (certifique-se de ter uma seleção ativa no Illustrator)
-const originalImage = doc.selection[0];
+// Seleciona o vetor original (certifique-se de que um objeto vetorial esteja selecionado)
+const originalVector = doc.selection[0];
 
-// Define as variáveis iniciais de tamanho, posição e quantidade de duplicações
-let size = 1.1; // Fator de aumento de tamanho
-let x = 0; // Posição X da nova imagem
-let y = 0; // Posição Y da nova imagem
+// Loop para duplicar
+for (let i = 0; i < 10; i++) {
 
-// Loop para duplicar a imagem original 5 vezes
-for (let i = 0; i < 5; i++) {
+  // Duplica o vetor original
+  const newVector = originalVector.duplicate();
 
-  // Cria uma nova imagem usando a API
-  const newImage = doc.placedItems.add();
+  // Aumenta tamanho
+  newVector.width *= 1.5;
+  newVector.height *= 1.5;
 
-  // Define dimensões da nova imagem
-  newImage.width = originalImage.width * size;
-  newImage.height = originalImage.height * size;
-
-  // Define a posição da nova imagem
-  newImage.position = [x, y];
-
-  // Aumenta o tamanho para a próxima iteração
-  size += 0.1;
-
-  // Atualiza as posições para evitar que as imagens se sobreponham
-  x += originalImage.width * size;
-  y += originalImage.height * size;
-
+  // Move para uma nova posição (ajuste as coordenadas conforme necessário)
+  newVector.left += 10; // Ajuste o valor conforme necessário
+  newVector.top += 10; // Ajuste o valor conforme necessário
 }
-
-// Salva o documento
-doc.save();
